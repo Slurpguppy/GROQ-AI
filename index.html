@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Groq AI Chat</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        #chat-container { width: 50%; margin: auto; }
+        textarea { width: 100%; height: 50px; }
+        button { padding: 10px; margin-top: 10px; }
+        .message { color: black; margin: 10px; padding: 10px; border-radius: 5px; }
+        .user { color: black; background: #d1e7ff; text-align: right; }
+        .bot { color: black; background: #f0f0f0; text-align: left; }
+    </style>
+</head>
+<body>
+    <h1>Groq AI api</h1>
+    <div id="chat-container">
+        <div id="chat-box"></div>
+        <textarea id="user-input" placeholder="Type a message..."></textarea>
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        async function sendMessage() {
+            const input = document.getElementById("user-input");
+            const chatBox = document.getElementById("chat-box");
+
+            const userMessage = input.value;
+            if (!userMessage.trim()) return;
+
+            chatBox.innerHTML += `<div class="message user">${userMessage}</div>`;
+            input.value = "";
+
+            try {
+                const response = await fetch("http://localhost:5000/chat", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message: userMessage }),
+                });
+
+                const data = await response.json();
+                const botMessage = data.choices[0].message.content;
+
+                chatBox.innerHTML += `<div class="message bot">${botMessage}</div>`;
+            } catch (error) {
+                chatBox.innerHTML += `<div class="message bot">Error: Unable to reach AI</div>`;
+            }
+        }
+    </script>
+</body>
+</html>
