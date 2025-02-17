@@ -44,10 +44,24 @@
                 const data = await response.json();
                 const botMessage = data.choices[0].message.content;
 
-                chatBox.innerHTML += `<div class="message bot">${botMessage}</div>`;
+                // Format bot response
+                const formattedMessage = formatBotResponse(botMessage);
+
+                chatBox.innerHTML += `<div class="message bot">${formattedMessage}</div>`;
             } catch (error) {
                 chatBox.innerHTML += `<div class="message bot">Error: Unable to reach AI</div>`;
             }
+        }
+
+        function formatBotResponse(message) {
+            // Simple example: Replace text patterns with HTML tags for formatting
+            message = message.replace(/\[header\](.*?)\[\/header\]/g, '<h2>$1</h2>');
+            message = message.replace(/\[list\](.*?)\[\/list\]/g, (match, listItems) => {
+                const items = listItems.split(',').map(item => `<li>${item.trim()}</li>`).join('');
+                return `<ul>${items}</ul>`;
+            });
+
+            return message;
         }
     </script>
 </body>

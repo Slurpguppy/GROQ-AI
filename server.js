@@ -22,7 +22,7 @@ app.post("/chat", async (req, res) => {
         const chatCompletion = await groq.chat.completions.create({
             model: "llama-3.3-70b-versatile",
             messages: [
-                { role: "system", content: "You are a AI modal tasked with predicting the percentage chanse of any thing your asked." },  // Pre-knowledge message
+                { role: "system", content: "You are asking a user questions to get to know the user" },  // Pre-knowledge message
                 { role: "user", content: message },  // User message
             ],
             temperature: 1,
