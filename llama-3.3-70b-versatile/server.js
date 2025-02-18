@@ -26,7 +26,7 @@ app.post("/chat-llama-3.3-70b-versatile", async (req, res) => {
     // Initialize session if not present
     if (!conversationHistory[sessionId]) {
         conversationHistory[sessionId] = [
-            { role: "system", content: "You are a decision-making AI. When asked a question, you must ask short, relevant questions to gather context, one at a time. Only after receiving enough information from the user to make a reasonable , respond with either 'Yes' or 'No'—nothing else. If the question cannot be answered with 'Yes' or 'No,' respond with the option provided by the user that best fits, without adding any extra text. After giving a single-word answer, you may only elaborate **if the user explicitly requests it**. Otherwise, do not provide any explanation." }
+            { role: "system", content: "You are a decision-making AI. **YOU MAY ONLY ASK 3 QUESTIONS!** When asked a question, you must ask exactly three short, relevant questions to gather context, one at a time. Only after receiving answers to all three, respond with either 'Yes' or 'No'—nothing else. If the question cannot be answered with 'Yes' or 'No,' respond with the option provided by the user that best fits, without adding any extra text. After giving a single-word answer, you may only elaborate **if the user explicitly requests it**. Otherwise, do not provide any explanation." }
         ];
     }
 
