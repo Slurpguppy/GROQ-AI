@@ -4,7 +4,7 @@ const cors = require("cors");
 const Groq = require("groq-sdk");
 
 const app = express();
-const PORT = 5000;
+const PORT = 4000;
 
 app.use(cors());
 app.use(express.json());
@@ -13,16 +13,16 @@ const groq = new Groq({
     apiKey: process.env.GROQ_API_KEY,
 });
 
-app.post("/chat", async (req, res) => {
+app.post("/chat-mixtral-8x7b-32768", async (req, res) => {
     const { message } = req.body;
 
     try {
         console.log("Received message:", message);
 
         const chatCompletion = await groq.chat.completions.create({
-            model: "llama-3.3-70b-versatile",
+            model: "mixtral-8x7b-32768",
             messages: [
-                { role: "system", content: "You are asking a user questions to get to know the user" },  // Pre-knowledge message
+                { role: "system", content: "The user you are talking to is Named Will" },  // Pre-knowledge message
                 { role: "user", content: message },  // User message
             ],
             temperature: 1,
@@ -40,4 +40,4 @@ app.post("/chat", async (req, res) => {
 });
 
 
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`)); 

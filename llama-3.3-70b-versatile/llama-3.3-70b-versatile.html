@@ -16,17 +16,17 @@
     </style>
 </head>
 <body>
-    <h1>Groq AI api</h1>
-    <div id="chat-container">
-        <div id="chat-box"></div>
-        <textarea id="user-input" placeholder="Type a message..."></textarea>
-        <button onclick="sendMessage()">Send</button>
+    <h1>llama-3.3-70b-versatile</h1>
+    <div id="chat-container-versatile">
+        <div id="chat-box-versatile"></div>
+        <textarea id="user-input-versatile" placeholder="Type a message..."></textarea>
+        <button onclick="sendMessageversatile()">Send</button>
     </div>
 
     <script>
-        async function sendMessage() {
-            const input = document.getElementById("user-input");
-            const chatBox = document.getElementById("chat-box");
+        async function sendMessageversatile() {
+            const input = document.getElementById("user-input-versatile");
+            const chatBox = document.getElementById("chat-box-versatile");
 
             const userMessage = input.value;
             if (!userMessage.trim()) return;
@@ -35,7 +35,7 @@
             input.value = "";
 
             try {
-                const response = await fetch("http://localhost:5000/chat", {
+                const response = await fetch("http://localhost:5000/chat-llama-3.3-70b-versatile", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ message: userMessage }),
@@ -45,7 +45,7 @@
                 const botMessage = data.choices[0].message.content;
 
                 // Format bot response
-                const formattedMessage = formatBotResponse(botMessage);
+                const formattedMessage = formatBotResponseversatile(botMessage);
 
                 chatBox.innerHTML += `<div class="message bot">${formattedMessage}</div>`;
             } catch (error) {
@@ -53,7 +53,7 @@
             }
         }
 
-        function formatBotResponse(message) {
+        function formatBotResponseversatile(message) {
             // Simple example: Replace text patterns with HTML tags for formatting
             message = message.replace(/\[header\](.*?)\[\/header\]/g, '<h2>$1</h2>');
             message = message.replace(/\[list\](.*?)\[\/list\]/g, (match, listItems) => {
