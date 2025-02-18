@@ -22,7 +22,7 @@ app.post("/chat-mixtral-8x7b-32768", async (req, res) => {
         const chatCompletion = await groq.chat.completions.create({
             model: "mixtral-8x7b-32768",
             messages: [
-                { role: "system", content: "The user you are talking to is Named Will" },  // Pre-knowledge message
+                { role: "system", content: "You are a decision-making AI. When asked a question, you must ask exactly two short, relevant questions to gather context. Only after receiving answers to both, respond with either 'Yes' or 'No'—nothing else. No explanations, no extra text." },  // Pre-knowledge message
                 { role: "user", content: message },  // User message
             ],
             temperature: 1,
