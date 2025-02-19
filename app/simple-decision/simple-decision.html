@@ -54,13 +54,45 @@
 }
 
 
+
+.parent-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#animation {
+  width: 20px;
+  height: 20px;
+  background-color: #cbcbcb;
+  border-radius: 50%;
+  animation: loadingDot 1.0s infinite ease-in-out;
+}
+
+@keyframes loadingDot {
+  0%, 80%, 100% {
+    transform: scale(0);
+    opacity: 0.3;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+
+
+
     </style>
 </head>
 <body>
     <h1>llama-3.3-70b-versatile | simple-decision</h1>
     <div id="chat-container-versatile">
         <div id="chat-box-versatile"></div>
-
+    <div class="parent-container">
+        <div id="animation"></div>
+    </div>
         <div id="lastBotMessage"></div>
 
         <button class="YES-button">Yes</button>
@@ -73,117 +105,115 @@
     <!-- Popup and overlay -->
     <div id="popup-overlay"></div>
     <div id="popup">
+        <h2>Awnser</h2>
         <p id="popup-message"></p>
         <button onclick="reset()">Make another decision</button>
-        <button onclick="closePopup()">Ask why?</button>
+        <button class="elaborate-button" onclick="closePopup()">See why?</button>
     </div>
 
     <script>
         let sessionId = localStorage.getItem("sessionId") || generateSessionId();
         localStorage.setItem("sessionId", sessionId);
-
-        let aiMessageCount = 0; // Track AI messages
-        let isThinking = false; // Flag to check if the bot is "thinking"
-
+    
+        let aiMessageCount = 0;
+        let isThinking = false;
+        let userSentLastMessage = false; // New tracker
+    
         function generateSessionId() {
             return "session-" + Math.random().toString(36).substr(2, 9);
         }
-
+    
         async function sendMessageversatile(userMessage) {
             const chatBox = document.getElementById("chat-box-versatile");
             if (!userMessage) return;
-
+    
             chatBox.innerHTML += `<div class="message user">${userMessage}</div>`;
-
+            userSentLastMessage = true; // User sent a message
+    
             // Show "Thinking..." if the user sent a message
-            if (!isThinking) {
-                document.getElementById("lastBotMessage").innerText = "Thinking...";
-                isThinking = true;
-            }
-
+            const lastBotMessageElement = document.getElementById("lastBotMessage");
+            lastBotMessageElement.innerText = "";
+            lastBotMessageElement.classList.add("thinking");
+    
+            // Show animation
+            document.getElementById("animation").style.display = "block";
+            isThinking = true;
+    
             try {
                 const response = await fetch("http://localhost:5000/chat-llama-3.3-70b-versatile", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ message: userMessage, sessionId }),
                 });
-
+    
                 const data = await response.json();
                 if (!data.response) throw new Error("Invalid response from server");
-
+    
                 displayChatHistory(data.history);
             } catch (error) {
-                chatBox.innerHTML += `<div class="message bot">Error: Unable to reach AI</div>`;
+                chatBox.innerHTML += ``;
+                isThinking = false;
+                document.getElementById("animation").style.display = "none"; // Hide animation on error
             }
         }
-
+    
         function displayChatHistory(history) {
             const chatBox = document.getElementById("chat-box-versatile");
-            chatBox.innerHTML = ""; // Clear previous messages
-
-            aiMessageCount = 0; // Reset AI message counter
-            let firstUserMessage = ""; // Store the first user message
-            let fourthAiMessage = ""; // Store the fourth AI message
-            let lastBotMessage = ""; // Store the last bot message
-            let lastMessageRole = ""; // Store the role of the last message (user or assistant)
-
+            chatBox.innerHTML = "";
+    
+            aiMessageCount = 0;
+            let firstUserMessage = "";
+            let fourthAiMessage = "";
+            let lastBotMessage = "";
+            let lastMessageRole = "";
+    
             history.forEach(msg => {
                 const roleClass = msg.role === "user" ? "user" : "bot";
                 chatBox.innerHTML += `<div class="message ${roleClass}">${msg.content}</div>`;
-
+    
                 if (msg.role === "user" && !firstUserMessage) {
-                    firstUserMessage = msg.content; // Capture first user message
+                    firstUserMessage = msg.content;
                 }
-
+    
                 if (msg.role === "assistant") {
                     aiMessageCount++;
-                    lastBotMessage = msg.content; // Update last bot message
+                    lastBotMessage = msg.content;
                     if (aiMessageCount === 4) {
-                        fourthAiMessage = msg.content; // Capture fourth AI message
+                        fourthAiMessage = msg.content;
                     }
                 }
-
-                lastMessageRole = msg.role; // Update the role of the last message
+    
+                lastMessageRole = msg.role;
             });
-
-            // If the last message was sent by the user, show "Thinking"
+    
             if (lastMessageRole === "user") {
-                document.getElementById("lastBotMessage").innerText = "Thinking...";
+                document.getElementById("lastBotMessage").innerText = "";
             } else if (lastBotMessage) {
-                // Otherwise, show the last bot message in the center
                 document.getElementById("lastBotMessage").innerText = lastBotMessage;
-                isThinking = false; // Reset thinking state after bot's message
+                isThinking = false;
+                document.getElementById("animation").style.display = "none"; // Hide animation when bot replies
+                userSentLastMessage = false; // Reset tracker
             }
-
+    
             if (firstUserMessage && fourthAiMessage) {
                 showPopup(firstUserMessage + "\n\n" + fourthAiMessage);
             }
         }
-
-        function showPopup(message) {
-            document.getElementById("popup-message").innerText = message;
-            document.getElementById("popup-overlay").style.display = "block";
-            document.getElementById("popup").style.display = "block";
-        }
-
-        function closePopup() {
-            document.getElementById("popup-overlay").style.display = "none";
-            document.getElementById("popup").style.display = "none";
-        }
-
+    
         document.querySelector(".YES-button").addEventListener("click", () => sendMessageversatile("Yes"));
         document.querySelector(".NO-button").addEventListener("click", () => sendMessageversatile("No"));
-        document.querySelector(".IDK-button").addEventListener("click", () => sendMessageversatile("I DON'T KNOW"));
-
+        document.querySelector(".IDK-button").addEventListener("click", () => sendMessageversatile("I Don't Know"));
+        document.querySelector(".elaborate-button").addEventListener("click", () => sendMessageversatile("Explane your decision"));
+    
         document.querySelector("#user-input-versatile").addEventListener("keypress", function (event) {
             if (event.key === "Enter") {
                 event.preventDefault();
                 sendTextInput();
             }
         });
-
+    
         document.querySelector("#chat-container-versatile button:last-child").addEventListener("click", sendTextInput);
-
+    
         function sendTextInput() {
             const input = document.getElementById("user-input-versatile");
             const message = input.value.trim();
@@ -192,22 +222,29 @@
                 input.value = "";
             }
         }
-
+    
         function reset() {
-            // Clear chat box content
             document.getElementById("chat-box-versatile").innerHTML = "";
-
-            // Remove session data from local storage
             localStorage.removeItem("sessionId");
-
-            // You can also reset any other session or state variables if needed:
-            aiMessageCount = 0;  // Reset AI message count
-            sessionId = generateSessionId();  // Generate a new session ID
-            localStorage.setItem("sessionId", sessionId);  // Set the new session ID
-
-            // Close the popup
+            aiMessageCount = 0;
+            sessionId = generateSessionId();
+            localStorage.setItem("sessionId", sessionId);
             closePopup();
         }
+
+
+        function showPopup(message) {
+    document.getElementById("popup-message").innerText = message;
+    document.getElementById("popup").style.display = "block";
+    document.getElementById("popup-overlay").style.display = "block";
+}
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+    document.getElementById("popup-overlay").style.display = "none";
+}
+
     </script>
+    
 </body>
 </html>
