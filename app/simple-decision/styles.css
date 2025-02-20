@@ -1,5 +1,121 @@
-body {
-    color: rgb(201, 201, 201);
-    background: rgb(31, 31, 31);
+:root {
+    --bg-primary: #1a1b26;
+    --bg-secondary: #24283b;
+    --text-primary: #a9b1d6;
+    --text-secondary: #787c99;
+    --accent: #8e24aa;
+    --accent-hover: #6a1b9a;
+    --error: #f7768e;
+    --success: #9ece6a;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100%;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+}
+
+#chat-container-versatile {
+    width: 650px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    gap: 16px;
+}
+
+.status {
+    background: var(--bg-secondary);
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 0.9em;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+ }
+ 
+ .status h2 {
+    color: var(--text-primary);
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0 4px 4px;
+ }
+ 
+ .status h2 span {
+    font-size: 0.6em;
+    opacity: .4;
+ }
+ 
+         #chat-box-versatile {
+             background: var(--bg-secondary);
+             border-radius: 8px;
+             padding: 16px;
+             overflow-y: auto;
+             display: flex;
+             flex-direction: column;
+             gap: 8px;
+             height: 400px;
+         }
+ 
+         .message {
+             padding: 8px 12px;
+             border-radius: 6px;
+             max-width: 85%;
+             word-break: break-word;
+             position: relative;
+         }
+ 
+         .message.sent {
+             background: var(--accent);
+             color: white;
+             align-self: flex-end;
+         }
+ 
+         .message.received {
+             background: #2f3549;
+             align-self: flex-start;
+         }
+ 
+         #input-container {
+             display: flex;
+             gap: 12px;
+             background: var(--bg-secondary);
+             padding: 12px;
+             border-radius: 8px;
+         }
+ 
+         #user-input-versatile {
+             flex-grow: 1;
+             background: var(--bg-primary);
+             border: 1px solid #374168;
+             color: var(--text-primary);
+             padding: 12px;
+             border-radius: 6px;
+             outline: none;
+         }
+ 
+         #send-button {
+             background: var(--accent);
+             color: white;
+             border: none;
+             padding: 0 24px;
+             border-radius: 6px;
+             cursor: pointer;
+         }
+ 
+         #send-button:hover {
+             background: var(--accent-hover);
+         }
