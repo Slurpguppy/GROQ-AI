@@ -9,10 +9,28 @@
         
         #chat-container { width: 50%; margin: auto; }
         textarea { width: 100%; height: 50px; }
+
+        .message {
+            padding: 8px 12px;
+            border-radius: 6px;
+            max-width: 85%;
+            word-break: break-word;
+            position: relative;
+        }
+
+        .user {
+            background: var(--accent);
+            color: white;
+            align-self: flex-end;
+        }
+
+        .bot {
+            background: #2f3549;
+            align-self: flex-start;
+        }
        
-        .message { color: black; margin: 10px; padding: 10px; border-radius: 5px; }
-        .user { color: black; background: #818181; text-align: right; }
-        .bot { color: black; background: #4e4e4e; text-align: left; }
+        
+        
         
         /* Popup styles */
         #popup {
@@ -47,10 +65,7 @@
 #lastBotMessage {
     text-align: center;
     padding: 20px;
-    border-radius: 10px;
-    font-size: 28px;
-    color: rgb(236, 236, 236);
-    z-index: 999;
+    
 }
 
 
@@ -87,20 +102,35 @@
     </style>
 </head>
 <body>
-    <h1>llama-3.3-70b-versatile | simple-decision</h1>
+    
+   
     <div id="chat-container-versatile">
+
+        <div class="status">
+            <p>llama-3.3-70b-versatile | simple</p>
+        </div>
+        
         <div id="chat-box-versatile"></div>
     <div class="input-container">
+
+    <div class="status">
         <div id="animation"></div>
-    </div>
         <div id="lastBotMessage"></div>
+    </div>
+
+    </div>
+
+    <div id="input-container">
+        <button class="input-btns YES-button">Yes</button>
+        <button class="input-btns NO-button">No</button>
+        <button class="input-btns IDK-button">I Don't Know</button>
+    </div>
+
 <div id="input-container">
-        <button class="YES-button">Yes</button>
-        <button class="NO-button">No</button>
-        <button class="IDK-button">I Don't Know</button>
         <textarea class="input" id="user-input-versatile" placeholder="Type a message..."></textarea>
         <button id="send-button" onclick="sendMessageversatile()">Send</button>
-    </div>
+</div>
+
 </div>
     <!-- Popup and overlay -->
     <div id="popup-overlay"></div>
