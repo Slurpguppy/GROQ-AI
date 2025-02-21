@@ -122,9 +122,9 @@ body {
 
          .input-btns {
             background: var(--accent);
-            color: white;
+            color: rgb(199, 199, 199);
             border: none;
-            padding: 20px;
+            padding: 15px;
             border-radius: 6px;
             cursor: pointer;
             width: 100%;

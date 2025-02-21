@@ -18,12 +18,14 @@
             position: relative;
         }
 
-        .user {
+        /* user message */
+        .user { 
             background: var(--accent);
             color: white;
             align-self: flex-end;
         }
 
+        /* ai message */
         .bot {
             background: #2f3549;
             align-self: flex-start;
@@ -39,12 +41,15 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: white;
+            background: rgb(36, 36, 36);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
             z-index: 1000;
-            color: rgb(255, 0, 0);
+            color: rgb(255, 255, 255);
+            width: 400px;
+            height: 600px;
+            padding: 10px;
         }
         #popup-overlay {
             display: none;
@@ -59,13 +64,17 @@
 
         #popup-message::first-line {
     font-weight: bold;
-    color: blue;
+    color: rgb(164, 43, 201);
+    text-align: center;
 }
+
 
 #lastBotMessage {
     text-align: center;
     padding: 20px;
-    
+    font-size: large;
+    font-weight: bold;
+    color: white;
 }
 
 
@@ -82,6 +91,7 @@
   background-color: #cbcbcb;
   border-radius: 50%;
   animation: loadingDot 1.0s infinite ease-in-out;
+  border: #8e24aa solid 1px;
 }
 
 @keyframes loadingDot {
@@ -135,10 +145,12 @@
     <!-- Popup and overlay -->
     <div id="popup-overlay"></div>
     <div id="popup">
-        <h2>Awnser</h2>
+        <h2 style="text-align: center;">Awnser</h2>
+        <br>
         <p id="popup-message"></p>
-        <button onclick="reset()">Make another decision</button>
-        <button class="elaborate-button" onclick="closePopup()">See why?</button>
+        <br>
+        <button style="margin-bottom: 10px;" class="input-btns" onclick="reset()">Make another decision</button>
+        <button  class="input-btns elaborate-button" onclick="closePopup()">See why?</button>
     </div>
 
     <script>
