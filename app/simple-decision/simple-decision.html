@@ -16,7 +16,21 @@
             max-width: 85%;
             word-break: break-word;
             position: relative;
+            opacity: 0; /* Start invisible */
+    transform: translateY(10px); /* Start slightly below */
+    animation: fadeInUp 0.3s ease-out forwards; /* Apply animation */
         }
+
+        @keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
         /* user message */
         .user { 
@@ -27,8 +41,10 @@
 
         /* ai message */
         .bot {
-            background: #2f3549;
+            background: #222831;
             align-self: flex-start;
+            color: white;
+            font-weight: bold;
         }
        
         
@@ -131,14 +147,14 @@
     </div>
 
     <div id="input-container">
-        <button class="input-btns YES-button">Yes</button>
-        <button class="input-btns NO-button">No</button>
-        <button class="input-btns IDK-button">I Don't Know</button>
+        <button id="YES-button" class="input-btns YES-button">Yes</button>
+        <button id="NO-button" class="input-btns NO-button">No</button>
+        <button id="IDK-button" class="input-btns IDK-button">I Don't Know</button>
     </div>
 
 <div id="input-container">
-        <textarea class="input" id="user-input-versatile" placeholder="Type a message..."></textarea>
-        <button id="send-button" onclick="sendMessageversatile()">Send</button>
+        <textarea class="input" id="user-input-versatile" placeholder="Type your Awnser..."></textarea>
+        <button id="send-button" onclick="sendMessageversatile()">Send<span></span></button>
 </div>
 
 </div>
@@ -287,6 +303,6 @@ function closePopup() {
 }
 
     </script>
-    
+     <script src="send-btn.js"></script>
 </body>
 </html>

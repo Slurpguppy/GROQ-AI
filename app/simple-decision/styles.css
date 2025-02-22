@@ -1,10 +1,10 @@
 :root {
-    --bg-primary: #1a1b26;
-    --bg-secondary: #24283b;
+    --bg-primary: #222831;
+    --bg-secondary: #393e46;
     --text-primary: #a9b1d6;
     --text-secondary: #787c99;
-    --accent: #8e24aa;
-    --accent-hover: #6a1b9a;
+    --accent: #0092ca;
+    --accent-hover: #00b7ff54;
     --error: #f7768e;
     --success: #9ece6a;
 }
@@ -100,11 +100,12 @@ body {
          #user-input-versatile {
              flex-grow: 1;
              background: var(--bg-primary);
-             border: 1px solid #374168;
+             border: 1px solid #181818;
              color: var(--text-primary);
-             padding: 12px;
+             padding: 12.5px;
              border-radius: 6px;
              outline: none;
+             font-size: large;
          }
  
          #send-button {
@@ -114,11 +115,18 @@ body {
              padding: 0 24px;
              border-radius: 6px;
              cursor: pointer;
+             font-size: medium;
+             font-weight: bold;
+             transition: transform 0.2s ease, background-color 0.3s;
          }
  
          #send-button:hover {
              background: var(--accent-hover);
          }
+
+         #send-button:active {
+            transform: scale(0.9);
+        }
 
          .input-btns {
             background: var(--accent);
@@ -128,8 +136,15 @@ body {
             border-radius: 6px;
             cursor: pointer;
             width: 100%;
+            font-weight: bold;
+            font-size: medium;
+            transition: transform 0.2s ease, background-color 0.3s;
          }
 
          .input-btns:hover {
             background: var(--accent-hover);
+        }
+
+        .input-btns:active {
+            transform: scale(0.9);
         }
