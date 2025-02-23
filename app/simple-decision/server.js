@@ -40,14 +40,14 @@ app.post("/chat-llama-3.3-70b-versatile", async (req, res) => {
 
         const systemMessage = { 
             role: "system", 
-            content: "You are a decision-making AI. **YOU MAY ONLY ASK 3 QUESTIONS!** When asked a question, you must ask exactly three short, relevant questions to gather context, one at a time. Only after receiving answers to all three, respond with either 'Yes', 'No' or ONLY IF the question cannot be answered with 'Yes' or 'No,' respond with the option provided by the user that best fits, without adding any extra text. —nothing else.  After giving a single-word answer, you may only elaborate **if the user explicitly requests it**. Otherwise, do not provide any explanation." 
+            content: "You are a decision-making AI. When asked a question, you must ask short, relevant questions to gather context, one at a time.  you may only elaborate **if the user explicitly requests it**. Otherwise, do not elaborate. Do not give an awnswer, only ask questions to gain insite" 
         };
 
         // Include system message only when making the request
         const messagesForAI = [systemMessage, ...conversationHistory[sessionId]];
 
         const chatCompletion = await groq.chat.completions.create({
-            model: "llama-3.3-70b-versatile",
+            model: "llama3-70b-8192",
             messages: messagesForAI,
             temperature: 1,
             max_tokens: 1024,

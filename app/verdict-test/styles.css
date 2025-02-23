@@ -170,11 +170,3 @@ body {
             font-weight: bold;
             color: white;
         }
-
-        .verdict {
-            color: rgb(0, 157, 255);
-            text-align: center;
-            padding: 20px;
-            font-size: large;
-            font-weight: bold;
-        }

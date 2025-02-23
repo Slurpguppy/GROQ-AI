@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>Groq AI Chat</title>
     <style>
         
@@ -134,22 +133,20 @@
     <div id="chat-container-versatile">
 
         <div class="status">
-            <p>llama-3.3-70b-versatile | simple</p>
+            <p>llama-3.3-70b-versatile | Verdict>
         </div>
         
         <div id="chat-box-versatile"></div>
     <div class="input-container">
 
+        <div class="status">
+            <p>Current Verdict:</p>
+            <div id="current-verdict"></div>
+        </div>
+
     <div class="status">
         <div id="animation"></div>
         <div id="lastBotMessage"></div>
-    </div>
-
-    <div class="status">
-        <div id="animation"><i class="fa-solid fa-check" style="color: #63E6BE;"></i></div>
-        <p style="font-size: large; font-weight: bolder; color: rgb(255, 255, 255);">&nbsp; &nbsp;</i>Verdict:</p>
-        <div id="current-verdict"></div>
-        <button>See why</button>
     </div>
 
     </div>
@@ -192,8 +189,6 @@
         async function sendMessageversatile(userMessage) {
             const chatBox = document.getElementById("chat-box-versatile");
             if (!userMessage) return;
-
-            const currentVerdict = document.getElementById("current-verdict");
     
             chatBox.innerHTML += `<div class="message user">${userMessage}</div>`;
             userSentLastMessage = true; // User sent a message
@@ -208,7 +203,7 @@
             isThinking = true;
     
             try {
-                const response = await fetch("http://localhost:5000/chat-llama-3.3-70b-versatile", {
+                const response = await fetch("http://localhost:4000/chat-llama-3.3-70b-versatile", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ message: userMessage, sessionId }),
@@ -223,29 +218,8 @@
                 isThinking = false;
                 document.getElementById("animation").style.display = "none"; // Hide animation on error
             }
-        
-
-            try {
-        // Send request to port 4000
-        const response4000 = await fetch("http://localhost:4000/chat-llama-3.3-70b-versatile", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: userMessage, sessionId }),
-        });
-
-        const data4000 = await response4000.json();
-
-        if (data4000.response) {
-            currentVerdict.innerHTML = `<div class="verdict">${data4000.response}</div>`;
         }
-
-    } catch (error) {
-        console.error("Error fetching from port 4000:", error);
-    }
-
-    document.getElementById("animation").style.display = "none"; // Hide animation
-}
-
+    
         function displayChatHistory(history) {
             const chatBox = document.getElementById("chat-box-versatile");
             chatBox.innerHTML = "";
@@ -267,7 +241,7 @@
                 if (msg.role === "assistant") {
                     aiMessageCount++;
                     lastBotMessage = msg.content;
-                    if (aiMessageCount === 1000) {
+                    if (aiMessageCount === 4) {
                         fourthAiMessage = msg.content;
                     }
                 }
@@ -336,6 +310,6 @@ function closePopup() {
 
     </script>
      <script src="send-btn.js"></script>
-     <script src="verdict.js"></script>
+     
 </body>
 </html>

@@ -202,7 +202,7 @@
             isThinking = true;
     
             try {
-                const response = await fetch("http://localhost:5000/chat-llama-3.3-70b-versatile", {
+                const response = await fetch("http://localhost:6000/chat-llama-3.3-70b-versatile", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ message: userMessage, sessionId }),

@@ -40,7 +40,7 @@ app.post("/chat-llama-3.3-70b-versatile", async (req, res) => {
 
         const systemMessage = { 
             role: "system", 
-            content: "You are a decision-making AI. **YOU DECIDE ON THE AWNSER TO A QUESTION , IF NOT ENOUGH INFO RESPOND WITH STILL THINKLING...** When showed a chat message history, you must decide the awsner to the question that is being descused. Respond with either 'Yes', 'No, 'Still thinking...' or ONLY IF the question cannot be answered with 'Yes', 'Still thinking...' or 'No,' respond with the option provided by the user that best fits, Then add a certainty rating based on the answers to the questions. **Example: 80% Certain, ** without adding any extra text. —nothing else.  After giving a single-word answer, you may only elaborate **if the user explicitly requests it**. Otherwise, do not provide any explanation." 
+            content: "You are a decision-making AI. When asked a question, you must ask short, relevant questions to gather context, one at a time.  you may only elaborate **if the user explicitly requests it**. Otherwise, do not elaborate. Do not give an awnswer, only ask questions to gain insite" 
         };
 
         // Include system message only when making the request

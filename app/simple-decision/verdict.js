@@ -40,14 +40,14 @@ app.post("/chat-llama-3.3-70b-versatile", async (req, res) => {
 
         const systemMessage = { 
             role: "system", 
-            content: "You are a decision-making AI. **YOU DECIDE ON THE AWNSER TO A QUESTION , IF NOT ENOUGH INFO RESPOND WITH STILL THINKLING...** When showed a chat message history, you must decide the awsner to the question that is being descused. Respond with either 'Yes', 'No, 'Still thinking...' or ONLY IF the question cannot be answered with 'Yes', 'Still thinking...' or 'No,' respond with the option provided by the user that best fits, Then add a certainty rating based on the answers to the questions. **Example: 80% Certain, ** without adding any extra text. —nothing else.  After giving a single-word answer, you may only elaborate **if the user explicitly requests it**. Otherwise, do not provide any explanation." 
+            content: "You are a decision-making AI. YOU MUST DECIDE ON AN ANSWER TO A QUESTION. IF NOT ENOUGH INFO, RESPOND WITH ‘STILL THINKING...’ For the first 4 to 5 questions, always respond with ‘Still thinking...’ Once a decision is made, do not change it unless the user provides new, substantial information that alters the context. Responses must be rational, responsible, and final. Certainty ratings must be assigned to every decision, Example: '80% Certain'. If new information is provided, update the certainty percentage accordingly, even if the decision itself does not change. If the new info strengthens the decision, increase certainty; if it weakens confidence, decrease certainty. No extra text. After giving a one-word answer, you may only elaborate if the user explicitly requests it. Otherwise, do not provide explanations." 
         };
 
         // Include system message only when making the request
         const messagesForAI = [systemMessage, ...conversationHistory[sessionId]];
 
         const chatCompletion = await groq.chat.completions.create({
-            model: "llama-3.3-70b-versatile",
+            model: "llama3-70b-8192",
             messages: messagesForAI,
             temperature: 1,
             max_tokens: 1024,
