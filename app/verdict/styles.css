@@ -28,24 +28,11 @@ body {
 
 #chat-container-versatile {
     width: 850px;
-    height: 90vh;
     max-width: 100%;
     display: flex;
     flex-direction: column;
     padding: 16px;
     gap: 16px;
-}
-
-.verdict{
-    background: var(--bg-secondary);
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 0.9em;
-    color: var(--text-secondary);
-    flex-shrink: 0;
-    display: flex;
-    justify-content: left;
-    align-items: center;
 }
 
 .status {
@@ -58,7 +45,6 @@ body {
     display: flex;
     justify-content: left;
     align-items: center;
-    margin-bottom: 20px;
  }
  
  .status h2 {
@@ -81,7 +67,7 @@ body {
              display: flex;
              flex-direction: column;
              gap: 8px;
-             height: 100%;
+             height: 400px;
          }
  
          .message {
@@ -161,12 +147,4 @@ body {
 
         .input-btns:active {
             transform: scale(0.9);
-        }
-
-        #current-verdict {
-            text-align: center;
-            padding: 20px;
-            font-size: large;
-            font-weight: bold;
-            color: white;
         }
