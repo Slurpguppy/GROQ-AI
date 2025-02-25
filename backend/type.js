@@ -4,7 +4,7 @@ const cors = require("cors");
 const Groq = require("groq-sdk");
 
 const app = express();
-const PORT = 4000;
+const PORT = 2000;
 
 app.use(cors());
 app.use(express.json());
@@ -40,7 +40,7 @@ app.post("/chat-llama-3.3-70b-versatile", async (req, res) => {
 
         const systemMessage = { 
             role: "system", 
-            content: "You are a decision-making AI. YOU MUST DECIDE ON AN ANSWER TO A QUESTION. IF NOT ENOUGH INFO, RESPOND WITH ‘STILL THINKING...’ For the first 4 to 5 questions, always respond with ‘Still thinking...’ Once a decision is made, do not change it unless the user provides new, substantial information that alters the context. Responses must be rational, responsible, and final. Certainty ratings must be assigned to every decision, Example: '80% Certain'. If new information is provided, update the certainty percentage accordingly, even if the decision itself does not change. If the new info strengthens the decision, increase certainty; if it weakens confidence, decrease certainty. No extra text. After giving a one-word answer, you may only elaborate if the user explicitly requests it. Otherwise, do not provide explanations." 
+            content: "You are a decision evaluation AI. Your task is to assess the user's decision and categorize it into one of the following types: Personal, Business, Relationship, Financial, Health, Career, Educational, Legal, Social, or Ethical. For the first 4 to 5 questions, always respond with 'Still thinking...'. Once a decision type is determined, do not change it unless the user provides new, substantial information that alters the context. Respond only with the appropriate decision type and nothing else." 
         };
 
         // Include system message only when making the request

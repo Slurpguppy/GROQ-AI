@@ -136,9 +136,29 @@
         <div class="status">
             <p>llama-3.3-70b-versatile | simple</p>
         </div>
+
+        <div class="status">
+            <p style="font-size: large; font-weight: bolder; color: rgb(255, 255, 255);">&nbsp; &nbsp;</i>Decision Size:</p>
+            <div id="current-level"></div>
+        </div>
+    
+        <div class="status">
+            <p style="font-size: large; font-weight: bolder; color: rgb(255, 255, 255);">&nbsp; &nbsp;</i>Decision Type:</p>
+            <div id="current-type"></div>
+        </div>
         
         <div id="chat-box-versatile"></div>
     <div class="input-container">
+
+        <div class="status">
+            <p style="font-size: large; font-weight: bolder; color: rgb(255, 255, 255);">&nbsp; &nbsp;</i>Potential positive outcome:</p>
+            <div id="potential-positive-outcome"></div>
+        </div>
+        
+        <div class="status">
+            <p style="font-size: large; font-weight: bolder; color: rgb(255, 255, 255);">&nbsp; &nbsp;</i>Potential negative outcome:</p>
+            <div id="potential-negative-outcome"></div>
+        </div>
 
     <div class="status">
         <div id="animation"></div>
@@ -146,7 +166,6 @@
     </div>
 
     <div class="status">
-        <div id="animation"><i class="fa-solid fa-check" style="color: #63E6BE;"></i></div>
         <p style="font-size: large; font-weight: bolder; color: rgb(255, 255, 255);">&nbsp; &nbsp;</i>Verdict:</p>
         <div id="current-verdict"></div>
         <button>See why</button>
@@ -194,6 +213,14 @@
             if (!userMessage) return;
 
             const currentVerdict = document.getElementById("current-verdict");
+
+            const currentLevel = document.getElementById("current-level");
+
+            const currentType = document.getElementById("current-type");
+
+            const potentialPositiveOutcome = document.getElementById("potential-positive-outcome");
+
+            const potentialNegativeOutcome = document.getElementById("potential-negative-outcome");
     
             chatBox.innerHTML += `<div class="message user">${userMessage}</div>`;
             userSentLastMessage = true; // User sent a message
@@ -244,7 +271,101 @@
     }
 
     document.getElementById("animation").style.display = "none"; // Hide animation
+    
+
+
+try {
+        // Send request to port 3000
+        const response3000 = await fetch("http://localhost:3000/chat-llama-3.3-70b-versatile", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: userMessage, sessionId }),
+        });
+
+        const data3000 = await response3000.json();
+
+        if (data3000.response) {
+            currentLevel.innerHTML = `<div class="current-level">${data3000.response}</div>`;
+        }
+
+    } catch (error) {
+        console.error("Error fetching from port 3000:", error);
+    }
+
+    document.getElementById("animation").style.display = "none"; // Hide animation
+
+
+    try {
+        // Send request to port 2000
+        const response2000 = await fetch("http://localhost:2000/chat-llama-3.3-70b-versatile", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: userMessage, sessionId }),
+        });
+
+        const data2000 = await response2000.json();
+
+        if (data2000.response) {
+            currentType.innerHTML = `<div class="current-type">${data2000.response}</div>`;
+        }
+
+    } catch (error) {
+        console.error("Error fetching from port 2000:", error);
+    }
+
+    document.getElementById("animation").style.display = "none"; // Hide animation
+
+
+
+    try {
+        // Send request to port 1000 OUTCOME
+        const response1000 = await fetch("http://localhost:1000/chat-llama-3.3-70b-versatile", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: userMessage, sessionId }),
+        });
+
+        const data1000 = await response1000.json();
+
+        if (data1000.response) {
+            potentialPositiveOutcome.innerHTML = `<div class="potential-positive-outcome">${data1000.response}</div>`;
+        }
+
+    } catch (error) {
+        console.error("Error fetching from port 1000:", error);
+    }
+
+    document.getElementById("animation").style.display = "none"; // Hide animation
+
+
+
+
+
+
+
+    try {
+        // Send request to port 6000 OUTCOME n
+        const response7000 = await fetch("http://localhost:7000/chat-llama-3.3-70b-versatile", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: userMessage, sessionId }),
+        });
+
+        const data7000 = await response7000.json();
+
+        if (data7000.response) {
+            potentialNegativeOutcome.innerHTML = `<div class="potential-negative-outcome">${data7000.response}</div>`;
+        }
+
+    } catch (error) {
+        console.error("Error fetching from port 7000:", error);
+    }
+
+    document.getElementById("animation").style.display = "none"; // Hide animation
+
+
 }
+
 
         function displayChatHistory(history) {
             const chatBox = document.getElementById("chat-box-versatile");
