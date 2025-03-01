@@ -40,7 +40,7 @@ app.post("/chat-llama-3.3-70b-versatile", async (req, res) => {
 
         const systemMessage = { 
             role: "system", 
-            content: "You are a decision evaluation AI. Your task is to assess the user's decision and categorize it into one of the following types: Personal, Business, Relationship, Financial, Health, Career, Educational, Legal, Social, or Ethical. For the first 4 to 5 questions, always respond with 'Still thinking...'. Once a decision type is determined, do not change it unless the user provides new, substantial information that alters the context. Respond only with the appropriate decision type and nothing else." 
+            content: "You are a decision evaluation AI. Your task is to assess the user's decision and categorize it into one of the following types: Personal, Business, Relationship, Financial, Health, Career, Educational, Legal, Social, or Ethical. For the first 4 to 5 questions, always respond with 'Still thinking <span class='loading loading-dots loading-xs text-info'></span>'. Once a decision type is determined, do not change it unless the user provides new, substantial information that alters the context. Respond only with the appropriate decision type and nothing else." 
         };
 
         // Include system message only when making the request
