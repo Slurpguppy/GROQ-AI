@@ -40,7 +40,7 @@ app.post("/chat-llama-3.3-70b-versatile", async (req, res) => {
 
         const systemMessage = { 
             role: "system", 
-            content: "You are a decision evaluation AI. Your task is to assess the user's decision and determine the most likely positive outcome. For the first 2 to 3 questions, always respond with 'Still thinking...'. Once an outcome is determined, try not to change it unless the user provides new, substantial information that alters the context. Respond only with a short sentence explaining the positive outcome." 
+            content: "You are a decision evaluation AI. Your task is to assess the user's decision and determine the most likely positive outcome. For the first 2 to 3 questions, always respond with 'Still thinking <span class='loading loading-dots loading-xs text-info'></span>'. Once an outcome is determined, try not to change it unless the user provides new, substantial information that alters the context. Respond only with a short sentence explaining the positive outcome." 
         };
 
         // Include system message only when making the request
