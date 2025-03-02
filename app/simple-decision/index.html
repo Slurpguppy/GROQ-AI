@@ -300,40 +300,48 @@
             <li>
               <details>
                 <summary>Theme</summary>
-                <ul class="bg-base-100 rounded-t-none p-2">
-                    <div style="z-index: 100000;" class="join join-vertical">
+                <ul style="z-index: 999999; position: fixed; " tabindex="0" class="dropdown-content bg-base-300 rounded-box z-1 w-52 p-2 shadow-2xl">
+                    <li>
+                      <input
+                        type="radio"
+                        name="theme-dropdown"
+                        class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
+                        aria-label="Dark"
+                        value="default" />
+                    </li>
+                    <li>
+                      <input
+                        type="radio"
+                        name="theme-dropdown"
+                        class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
+                        aria-label="Light"
+                        value="light" />
+                    </li>
+                    <li>
                         <input
                           type="radio"
-                          name="theme-buttons"
-                          class="btn theme-controller join-item"
-                          aria-label="Default"
-                          value="default" />
-                        <input
-                          type="radio"
-                          name="theme-buttons"
-                          class="btn theme-controller join-item"
-                          aria-label="Retro"
-                          value="retro" />
-                        <input
-                          type="radio"
-                          name="theme-buttons"
-                          class="btn theme-controller join-item"
-                          aria-label="Cyberpunk"
-                          value="cyberpunk" />
-                        <input
-                          type="radio"
-                          name="theme-buttons"
-                          class="btn theme-controller join-item"
-                          aria-label="Valentine"
-                          value="valentine" />
-                        <input
-                          type="radio"
-                          name="theme-buttons"
-                          class="btn theme-controller join-item"
-                          aria-label="Aqua"
-                          value="aqua" />
-                      </div>
-                </ul>
+                          name="theme-dropdown"
+                          class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
+                          aria-label="Abyss"
+                          value="abyss" />
+                      </li>
+                    <li>
+                      <input
+                        type="radio"
+                        name="theme-dropdown"
+                        class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
+                        aria-label="Valentine"
+                        value="valentine" />
+                    </li>
+                    <li>
+                      <input
+                        type="radio"
+                        name="theme-dropdown"
+                        class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
+                        aria-label="Aqua"
+                        value="aqua" />
+                    </li>
+                  </ul>
               </details>
             </li>
             
