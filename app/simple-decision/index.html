@@ -413,7 +413,7 @@
                   <div class="timeline-middle">
                     &nbsp; &nbsp; <i class="fa-solid fa-lightbulb" style="color: #FFD43B;"></i> &nbsp; &nbsp;
                   </div>
-                  <div class="timeline-end timeline-box"></div>
+                  <div class="timeline-end timeline-box"><div id="current-ttkim"></div></div>
                   <hr />
                 </li>
                 <li>
@@ -487,6 +487,8 @@
              const currentLevel = document.getElementById("current-level");
  
              const currentType = document.getElementById("current-type");
+
+             const currentTtkim = document.getElementById("current-ttkim");
  
              const potentialPositiveOutcome = document.getElementById("potential-positive-outcome");
  
@@ -581,6 +583,27 @@
  
      } catch (error) {
          console.error("Error fetching from port 2000:", error);
+     }
+ 
+     document.getElementById("animation").style.display = "none"; // Hide animation
+
+
+     try {
+         // Send request to port 8000 THINGS TO KEEP IN MIND
+         const response8000 = await fetch("http://localhost:8000/chat-llama-3.3-70b-versatile", {
+             method: "POST",
+             headers: { "Content-Type": "application/json" },
+             body: JSON.stringify({ message: userMessage, sessionId }),
+         });
+ 
+         const data8000 = await response8000.json();
+ 
+         if (data8000.response) {
+             currentTtkim.innerHTML = `<div class="current-ttkim">${data8000.response}</div>`;
+         }
+ 
+     } catch (error) {
+         console.error("Error fetching from port 8000:", error);
      }
  
      document.getElementById("animation").style.display = "none"; // Hide animation
