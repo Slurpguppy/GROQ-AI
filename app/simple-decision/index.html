@@ -1,756 +1,789 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.24/dist/full.min.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@4.12.24/dist/full.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
     <title>Document</title>
-</head>
-<style>
-  :root {
-    --bg-primary: #222831;
-    --bg-secondary: #393e46;
-    --text-primary: #a9b1d6;
-    --text-secondary: #787c99;
-    --accent: #0092ca;
-    --accent-hover: #00b7ff54;
-    --error: #f7768e;
-    --success: #9ece6a;
-}
+  </head>
+  <style>
+    :root {
+      --bg-primary: #222831;
+      --bg-secondary: #393e46;
+      --text-primary: #a9b1d6;
+      --text-secondary: #787c99;
+      --accent: #0092ca;
+      --accent-hover: #00b7ff54;
+      --error: #f7768e;
+      --success: #9ece6a;
+    }
 
+    #chat-container-versatile {
+      position: sticky;
+      top: 0;
+      width: 50vw;
+      height: 65%;
+      margin-bottom: 180px;
+      width: 100%;
+      padding: 10px;
+      gap: 16px;
+    }
 
-#chat-container-versatile {
-    position: sticky;
-    top: 0;
-    width: 50vw;
-    height: 65%;
-    margin-bottom: 180px;
-   width: 100%;
-   padding: 10px;
-    gap: 16px;
-}
+    .verdict {
+      background: var(--bg-secondary);
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 0.9em;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+      display: flex;
+      justify-content: left;
+      align-items: center;
+    }
 
+    .status {
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 0.9em;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+      display: flex;
+      justify-content: left;
+      align-items: center;
+    }
 
-.verdict{
-    background: var(--bg-secondary);
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 0.9em;
-    color: var(--text-secondary);
-    flex-shrink: 0;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-}
+    .status h2 {
+      color: var(--text-primary);
+      font-size: 16px;
+      font-weight: 500;
+      margin: 0 4px 4px;
+    }
 
-.status {
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 0.9em;
-    color: var(--text-secondary);
-    flex-shrink: 0;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-   
- }
- 
- .status h2 {
-    color: var(--text-primary);
-    font-size: 16px;
-    font-weight: 500;
-    margin: 0 4px 4px;
- }
- 
- .status h2 span {
-    font-size: 0.6em;
-    opacity: .4;
- }
- 
-         #chat-box-versatile {
-             
-             border-radius: 8px;
-           
-             overflow-y: auto;
-            
-             flex-direction: column;
-             gap: 8px;
-             height: 100%;
-         }
- 
-        
- 
-         
-         #input-container {
-             display: flex;
-             gap: 12px;
-             
-             padding: 12px;
-             border-radius: 8px;
-         }
- 
-         #user-input-versatile {
-             flex-grow: 1;
-             background: var(--bg-primary);
-             border: 1px solid #181818;
-             color: var(--text-primary);
-             padding: 12.5px;
-             border-radius: 6px;
-             outline: none;
-             font-size: large;
-         }
- 
-         #send-button {
-             background: var(--accent);
-             color: white;
-             border: none;
-             padding: 0 24px;
-             border-radius: 6px;
-             cursor: pointer;
-             font-size: medium;
-             font-weight: bold;
-             transition: transform 0.2s ease, background-color 0.3s;
-         }
- 
-         #send-button:hover {
-             background: var(--accent-hover);
-         }
+    .status h2 span {
+      font-size: 0.6em;
+      opacity: 0.4;
+    }
 
-         #send-button:active {
-            transform: scale(0.9);
-        }
+    #chat-box-versatile {
+      border-radius: 8px;
 
-         .input-btns {
-            background: var(--accent);
-            color: rgb(199, 199, 199);
-            border: none;
-            padding: 15px;
-            border-radius: 6px;
-            cursor: pointer;
-            width: 100%;
-            font-weight: bold;
-            font-size: medium;
-            transition: transform 0.2s ease, background-color 0.3s;
-         }
+      overflow-y: auto;
 
-         .input-btns:hover {
-            background: var(--accent-hover);
-        }
+      flex-direction: column;
+      gap: 8px;
+      height: 100%;
+    }
 
-        .input-btns:active {
-            transform: scale(0.9);
-        }
+    #input-container {
+      display: flex;
+      gap: 12px;
 
-        #current-verdict {
-            text-align: center;
-            padding: 20px;
-            font-size: large;
-            font-weight: bold;
-            color: white;
-        }
+      padding: 12px;
+      border-radius: 8px;
+    }
 
-        .verdict {
-            color: rgb(0, 157, 255);
-            text-align: center;
-            font-size: large;
-            font-weight: bold;
-        }
+    #user-input-versatile {
+      flex-grow: 1;
+      
+    }
+/* old  btns
+    #send-button {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 0 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: medium;
+      font-weight: bold;
+      transition: transform 0.2s ease, background-color 0.3s;
+    }
 
-        
-        
+    #send-button:hover {
+      background: var(--accent-hover);
+    }
 
-        .message {
-    display: grid;
-    grid-template-columns: auto;
-    margin: 20px;
-    overflow-y: auto;
-    opacity: 0; /* Start invisible */
-    transform: translateY(10px); /* Start slightly below */
-    animation: fadeInUp 0.3s ease-out forwards; /* Apply animation */
-        }
+    #send-button:active {
+      transform: scale(0.9);
+    }
 
-        @keyframes fadeInUp {
-    from {
+    .input-btns {
+      background: var(--accent);
+      color: rgb(199, 199, 199);
+      border: none;
+      padding: 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: bold;
+      font-size: medium;
+      transition: transform 0.2s ease, background-color 0.3s;
+    }
+
+    .input-btns:hover {
+      background: var(--accent-hover);
+    }
+
+    .input-btns:active {
+      transform: scale(0.9);
+    }
+*/
+    #current-verdict {
+      text-align: center;
+      padding: 20px;
+      font-size: large;
+      font-weight: bold;
+      color: white;
+    }
+
+    .verdict {
+      color: rgb(0, 157, 255);
+      text-align: center;
+      font-size: large;
+      font-weight: bold;
+    }
+
+    .message {
+      display: grid;
+      grid-template-columns: auto;
+      margin: 20px;
+      overflow-y: auto;
+      opacity: 0; /* Start invisible */
+      transform: translateY(10px); /* Start slightly below */
+      animation: fadeInUp 0.3s ease-out forwards; /* Apply animation */
+    }
+
+    @keyframes fadeInUp {
+      from {
         opacity: 0;
         transform: translateY(10px);
-    }
-    to {
+      }
+      to {
         opacity: 1;
         transform: translateY(0);
+      }
     }
-}
 
-        /* user message */
-        .user {       
-    font-size: 15px;
-    color: white;
-    position: sticky;
-    top: 0; /* Sticks to the top */
-    right: 0;
-    padding: 10px;
-    margin-left: auto;
-        }
+    /* user message */
+    .user {
+      font-size: 15px;
+      color: white;
+      position: sticky;
+      top: 0; /* Sticks to the top */
+      right: 0;
+      padding: 10px;
+      margin-left: auto;
+    }
 
-        /* ai message */
-        .bot {
-     font-size: 15px;
-     color: rgb(0, 0, 0);
-     position: sticky;
-    top: 0; /* Sticks to the top */
-    right: 0;
-    padding: 10px;
-    margin-right: auto;
-    background: none !important;
-    background-image: url('https://img.freepik.com/premium-vector/ai-icon-artificial-intelligence-technology_116137-1213.jpg?w=2000'); /* Set the image */
-    background-size: cover; /* Adjusts the image size */
-    background-position: center; /* Centers the image */
-    background-repeat: no-repeat; /* Prevents repeating */
-        }
+    /* ai message */
+    .bot {
+      font-size: 15px;
+      color: rgb(0, 0, 0);
+      position: sticky;
+      top: 0; /* Sticks to the top */
+      right: 0;
+      padding: 10px;
+      margin-right: auto;
+      background: none !important;
+      background-image: url("https://img.freepik.com/premium-vector/ai-icon-artificial-intelligence-technology_116137-1213.jpg?w=2000"); /* Set the image */
+      background-size: cover; /* Adjusts the image size */
+      background-position: center; /* Centers the image */
+      background-repeat: no-repeat; /* Prevents repeating */
+    }
 
-        
-        
-        
-        /* Popup styles */
-        #popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgb(36, 36, 36);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-            color: rgb(255, 255, 255);
-            width: 400px;
-            height: 600px;
-            padding: 10px;
-        }
-        #popup-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-        }
+    /* Popup styles */
+    #popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgb(36, 36, 36);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      color: rgb(255, 255, 255);
+      width: 400px;
+      height: 600px;
+      padding: 10px;
+    }
+    #popup-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
 
-        #popup-message::first-line {
-    font-weight: bold;
-    color: rgb(164, 43, 201);
-    text-align: center;
-}
+    #popup-message::first-line {
+      font-weight: bold;
+      color: rgb(164, 43, 201);
+      text-align: center;
+    }
 
+    #lastBotMessage {
+      text-align: center;
+      padding: 20px;
+      font-size: large;
+      font-weight: bold;
+      color: white;
+    }
 
-#lastBotMessage {
-    text-align: center;
-    padding: 20px;
-    font-size: large;
-    font-weight: bold;
-    color: white;
-}
+    .parent-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
+    #animation {
+      width: 20px;
+      height: 20px;
+      background-color: #cbcbcb;
+      border-radius: 50%;
+      animation: loadingDot 1s infinite ease-in-out;
+      border: #ffffff14 solid 5px;
+    }
 
-
-.parent-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#animation {
-  width: 20px;
-  height: 20px;
-  background-color: #cbcbcb;
-  border-radius: 50%;
-  animation: loadingDot 1.0s infinite ease-in-out;
-  border: #ffffff14 solid 5px;
-}
-
-@keyframes loadingDot {
-  0%, 80%, 100% {
-    transform: scale(0);
-    opacity: 0.3;
-  }
-  40% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-
-
-
-
-
-</style>
-<body>
-
+    @keyframes loadingDot {
+      0%,
+      80%,
+      100% {
+        transform: scale(0);
+        opacity: 0.3;
+      }
+      40% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    
+  </style>
+  <body>
     <div class="navbar bg-base-100">
-        <div class="flex-1">
-          <a class="btn btn-ghost text-xl">Verdict</a>
-        </div>
-        <div class="flex-none">
-          <ul class="menu menu-horizontal px-1">
-            <li><a href="http://localhost:5173/">Login</a></li>
-            <li><a>Account</a></li>
-            <li>
-              <details>
-                <summary>Theme</summary>
-                <ul style="z-index: 999999; position: fixed; " tabindex="0" class="dropdown-content bg-base-300 rounded-box z-1 w-52 p-2 shadow-2xl">
-                    <li>
-                      <input
-                        type="radio"
-                        name="theme-dropdown"
-                        class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
-                        aria-label="Dark"
-                        value="default" />
-                    </li>
-                    <li>
-                      <input
-                        type="radio"
-                        name="theme-dropdown"
-                        class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
-                        aria-label="Light"
-                        value="light" />
-                    </li>
-                    <li>
-                        <input
-                          type="radio"
-                          name="theme-dropdown"
-                          class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
-                          aria-label="Abyss"
-                          value="abyss" />
-                      </li>
-                    <li>
-                      <input
-                        type="radio"
-                        name="theme-dropdown"
-                        class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
-                        aria-label="Valentine"
-                        value="valentine" />
-                    </li>
-                    <li>
-                      <input
-                        type="radio"
-                        name="theme-dropdown"
-                        class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
-                        aria-label="Aqua"
-                        value="aqua" />
-                    </li>
-                  </ul>
-              </details>
-            </li>
-            
-          </ul>
-        </div>
-      </div> 
+      <div class="flex-1">
+        <a class="btn btn-ghost text-xl">Verdict</a>
+      </div>
+      <div class="flex-none">
+        <ul class="menu menu-horizontal px-1">
+          <li><a href="http://localhost:5173/">Login</a></li>
+          <li><a>Account</a></li>
+          <li>
+            <details>
+              <summary>Theme</summary>
+              <ul
+                style="z-index: 999999; position: fixed"
+                tabindex="0"
+                class="dropdown-content bg-base-300 rounded-box z-1 w-52 p-2 shadow-2xl"
+              >
+                <li>
+                  <input
+                    type="radio"
+                    name="theme-dropdown"
+                    class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
+                    aria-label="Dark"
+                    value="default"
+                  />
+                </li>
+                <li>
+                  <input
+                    type="radio"
+                    name="theme-dropdown"
+                    class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
+                    aria-label="Light"
+                    value="light"
+                  />
+                </li>
+                <li>
+                  <input
+                    type="radio"
+                    name="theme-dropdown"
+                    class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
+                    aria-label="Abyss"
+                    value="abyss"
+                  />
+                </li>
+                <li>
+                  <input
+                    type="radio"
+                    name="theme-dropdown"
+                    class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
+                    aria-label="Valentine"
+                    value="valentine"
+                  />
+                </li>
+                <li>
+                  <input
+                    type="radio"
+                    name="theme-dropdown"
+                    class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
+                    aria-label="Aqua"
+                    value="aqua"
+                  />
+                </li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </div>
+    </div>
 
-
-      <div  class="flex w-full flex-col lg:flex-row">
-        
-        <div style="margin-left: 20px; height: 90vh; width: 50vw !important;" class="card bg-base-300 rounded-box grid h-32 flex-grow place-items-center">
-          
-            <div id="chat-container-versatile">
-
-        
-                <div id="chat-box-versatile"></div>
-            <div class="input-container">
-        
-               
-        
+    <div class="flex w-full flex-col lg:flex-row">
+      <div
+        style="margin-left: 20px; height: 90vh; width: 50vw !important"
+        class="card bg-base-300 rounded-box grid h-32 flex-grow place-items-center"
+      >
+        <div id="chat-container-versatile">
+          <div id="chat-box-versatile"></div>
+          <div class="input-container">
             <div class="status">
-                <div id="animation"></div>
-                <div style="display: none;" id="lastBotMessage"></div>
+              <div id="animation"></div>
+              <div style="display: none" id="lastBotMessage"></div>
             </div>
-            <br>
-        
-            </div>
-        
-            <div id="input-container">
-                <button id="YES-button" class="input-btns YES-button">Yes</button>
-                <button id="NO-button" class="input-btns NO-button">No</button>
-                <button id="IDK-button" class="input-btns IDK-button">I Don't Know</button>
-            </div>
-        
-        <div id="input-container">
-                <textarea class="input" id="user-input-versatile" placeholder="Type your Awnser..."></textarea>
-                <button id="send-button" onclick="sendMessageversatile(document.getElementById('user-input-versatile').value)">Send<span></span></button>
-        </div>
-        </div>
-        </div>
-        <div class="divider lg:divider-horizontal"></div>
-        <div style="margin-right: 20px; height: 90vh; width: 50vw;" class="card bg-base-300 rounded-box grid h-32 flex-grow place-items-center">
-            <h1>Decision Analysis</h1>
-            <ul style="margin-right: 25%;" class="timeline timeline-vertical">
-                <li>
-                  <div class="timeline-start">Type</div>
-                  <div class="timeline-middle">
-                    &nbsp; &nbsp; <i class="fa-solid fa-layer-group" style="color: #74fccf;"></i>&nbsp; &nbsp;
-                  </div>
-                  <div class="timeline-end timeline-box"><div id="current-type"></div></div>
-                  <hr />
-                </li>
-                <li>
-                  <hr />
-                  <div class="timeline-start">Size</div>
-                  <div class="timeline-middle">
-                    &nbsp; &nbsp; <i class="fa-solid fa-up-right-and-down-left-from-center" style="color: #74C0FC;"></i>&nbsp; &nbsp;
-                  </div>
-                  <div class="timeline-end timeline-box"><div id="current-level"></div></div>
-                  <hr />
-                </li>
-                
-              </ul>
+            <br />
+          </div>
 
+          <div id="input-container">
+            <button style="width: 15.5vw;" id="YES-button" class=" YES-button btn btn-soft btn-primary">Yes</button>
+            <button style="width: 15.11vw;" id="NO-button" class="btn btn-soft btn-primary NO-button">No</button>
+            <button style="width: 15.11vw;" id="IDK-button" class="btn btn-soft btn-primary IDK-button">
+              I Don't Know
+            </button>
+          </div>
 
-              <ul style=" margin-right: 25%;" class="timeline timeline-vertical">
-                <li>
-                  <div class="timeline-start">Things to keep in mind</div>
-                  <div class="timeline-middle">
-                    &nbsp; &nbsp; <i class="fa-solid fa-lightbulb" style="color: #FFD43B;"></i> &nbsp; &nbsp;
-                  </div>
-                  <div class="timeline-end timeline-box"><div id="current-ttkim"></div></div>
-                  <hr />
-                </li>
-                <li>
-                  <hr />
-                  <div class="timeline-start">Pros</div>
-                  <div class="timeline-middle">
-                    &nbsp; &nbsp;<i class="fa-solid fa-plus" style="color: #63E6BE;"></i>&nbsp; &nbsp;
-                  </div>
-                  <div class="timeline-end timeline-box"><div id="potential-positive-outcome"></div></div>
-                  <hr />
-                </li>
-                
-                <li>
-                    <hr />
-                    <div class="timeline-start">Cons</div>
-                    <div class="timeline-middle">
-                        &nbsp; &nbsp;<i class="fa-solid fa-minus" style="color: #e66565;"></i>&nbsp; &nbsp;
-                    </div>
-                    <div class="timeline-end timeline-box"><div id="potential-negative-outcome"></div></div>
-                    <hr />
-                  </li>
-              </ul>
-
-              <div style="margin-bottom: 30px; width: 100%;" class="overflow-x-auto">
-                <table class="table">
-                  <!-- head -->
-                  <thead>
-                    <tr>
-                      <th></th>
-                      <th>Verdict</th>
-                      <th></th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <!-- row 1 -->
-                    <tr style="font-size: large;">
-                      <th><!-- LOGO --></th>
-                      <td style="font-size: larger; color: blueviolet;">Verdict</td>
-                      <td><div id="current-verdict"></div></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
+          <div id="input-container">
+            <input
+              id="user-input-versatile"
+              type="text"
+              placeholder="Type your Awnser..."
+              class="input input-primary"
+            />
+            
+            <button
+              id="send-button"
+              class="btn btn-primary"
+              onclick="sendMessageversatile(document.getElementById('user-input-versatile').value)"
+            >
+            <i class="fa-solid fa-paper-plane" style="color: #000000;"></i>&nbsp;Send
+            </button>
+          </div>
         </div>
       </div>
+      <div class="divider lg:divider-horizontal"></div>
+      <div
+        style="margin-right: 20px; height: 90vh; width: 50vw"
+        class="card bg-base-300 rounded-box grid h-32 flex-grow place-items-center"
+      >
+        <h1>Decision Analysis</h1>
+        <ul style="margin-right: 25%" class="timeline timeline-vertical">
+          <li>
+            <div class="timeline-start">Type</div>
+            <div class="timeline-middle">
+              &nbsp; &nbsp;
+              <i class="fa-solid fa-layer-group" style="color: #74fccf"></i
+              >&nbsp; &nbsp;
+            </div>
+            <div class="timeline-end timeline-box">
+              <div id="current-type"></div>
+            </div>
+            <hr />
+          </li>
+          <li>
+            <hr />
+            <div class="timeline-start">Size</div>
+            <div class="timeline-middle">
+              &nbsp; &nbsp;
+              <i
+                class="fa-solid fa-up-right-and-down-left-from-center"
+                style="color: #74c0fc"
+              ></i
+              >&nbsp; &nbsp;
+            </div>
+            <div class="timeline-end timeline-box">
+              <div id="current-level"></div>
+            </div>
+            <hr />
+          </li>
+        </ul>
 
+        <ul style="margin-right: 25%" class="timeline timeline-vertical">
+          <li>
+            <div class="timeline-start">Things to keep in mind</div>
+            <div class="timeline-middle">
+              &nbsp; &nbsp;
+              <i class="fa-solid fa-lightbulb" style="color: #ffd43b"></i>
+              &nbsp; &nbsp;
+            </div>
+            <div class="timeline-end timeline-box">
+              <div id="current-ttkim"></div>
+            </div>
+            <hr />
+          </li>
+          <li>
+            <hr />
+            <div class="timeline-start">Pros</div>
+            <div class="timeline-middle">
+              &nbsp; &nbsp;<i
+                class="fa-solid fa-plus"
+                style="color: #63e6be"
+              ></i
+              >&nbsp; &nbsp;
+            </div>
+            <div class="timeline-end timeline-box">
+              <div id="potential-positive-outcome"></div>
+            </div>
+            <hr />
+          </li>
 
+          <li>
+            <hr />
+            <div class="timeline-start">Cons</div>
+            <div class="timeline-middle">
+              &nbsp; &nbsp;<i
+                class="fa-solid fa-minus"
+                style="color: #e66565"
+              ></i
+              >&nbsp; &nbsp;
+            </div>
+            <div class="timeline-end timeline-box">
+              <div id="potential-negative-outcome"></div>
+            </div>
+            <hr />
+          </li>
+        </ul>
 
+        <div style="margin-bottom: 30px; width: 100%" class="overflow-x-auto">
+          <table class="table">
+            <!-- head -->
+            <thead>
+              <tr>
+                <th></th>
+                <th>Verdict</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- row 1 -->
+              <tr style="font-size: large">
+                <th><!-- LOGO --></th>
+                <td style="font-size: larger; color: blueviolet">Verdict</td>
+                <td><div id="current-verdict"></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 
+    <script>
+      let sessionId = localStorage.getItem("sessionId") || generateSessionId();
+      localStorage.setItem("sessionId", sessionId);
 
-      <script>
-        let sessionId = localStorage.getItem("sessionId") || generateSessionId();
-         localStorage.setItem("sessionId", sessionId);
-     
-         let aiMessageCount = 0;
-         let isThinking = false;
-         let userSentLastMessage = false; // New tracker
-     
-         function generateSessionId() {
-             return "session-" + Math.random().toString(36).substr(2, 9);
-         }
-     
-         async function sendMessageversatile(userMessage) {
-             const chatBox = document.getElementById("chat-box-versatile");
-             if (!userMessage) return;
- 
-             const currentVerdict = document.getElementById("current-verdict");
- 
-             const currentLevel = document.getElementById("current-level");
- 
-             const currentType = document.getElementById("current-type");
+      let aiMessageCount = 0;
+      let isThinking = false;
+      let userSentLastMessage = false; // New tracker
 
-             const currentTtkim = document.getElementById("current-ttkim");
- 
-             const potentialPositiveOutcome = document.getElementById("potential-positive-outcome");
- 
-             const potentialNegativeOutcome = document.getElementById("potential-negative-outcome");
-     
-             chatBox.innerHTML += `<div class="chat-bubble message user">${userMessage}</div>`;
-             userSentLastMessage = true; // User sent a message
-     
-             // Show "Thinking..." if the user sent a message
-             const lastBotMessageElement = document.getElementById("lastBotMessage");
-             lastBotMessageElement.innerText = "";
-             lastBotMessageElement.classList.add("thinking");
-     
-             // Show animation
-             document.getElementById("animation").style.display = "block";
-             isThinking = true;
-     
-             try {
-                 const response = await fetch("http://localhost:5000/chat-llama-3.3-70b-versatile", {
-                     method: "POST",
-                     headers: { "Content-Type": "application/json" },
-                     body: JSON.stringify({ message: userMessage, sessionId }),
-                 });
-     
-                 const data = await response.json();
-                 if (!data.response) throw new Error("Invalid response from server");
-     
-                 displayChatHistory(data.history);
-             } catch (error) {
-                 chatBox.innerHTML += ``;
-                 isThinking = false;
-                 document.getElementById("animation").style.display = "none"; // Hide animation on error
-             }
-         
- 
-             try {
-         // Send request to port 4000
-         const response4000 = await fetch("http://localhost:4000/chat-llama-3.3-70b-versatile", {
-             method: "POST",
-             headers: { "Content-Type": "application/json" },
-             body: JSON.stringify({ message: userMessage, sessionId }),
-         });
- 
-         const data4000 = await response4000.json();
- 
-         if (data4000.response) {
-             currentVerdict.innerHTML = `<div class="verdict">${data4000.response}</div>`;
-         }
- 
-     } catch (error) {
-         console.error("Error fetching from port 4000:", error);
-     }
- 
-     document.getElementById("animation").style.display = "none"; // Hide animation
-     
- 
- 
- try {
-         // Send request to port 3000
-         const response3000 = await fetch("http://localhost:3000/chat-llama-3.3-70b-versatile", {
-             method: "POST",
-             headers: { "Content-Type": "application/json" },
-             body: JSON.stringify({ message: userMessage, sessionId }),
-         });
- 
-         const data3000 = await response3000.json();
- 
-         if (data3000.response) {
-             currentLevel.innerHTML = `<div class="current-level">${data3000.response}</div>`;
-         }
- 
-     } catch (error) {
-         console.error("Error fetching from port 3000:", error);
-     }
- 
-     document.getElementById("animation").style.display = "none"; // Hide animation
- 
- 
-     try {
-         // Send request to port 2000
-         const response2000 = await fetch("http://localhost:2000/chat-llama-3.3-70b-versatile", {
-             method: "POST",
-             headers: { "Content-Type": "application/json" },
-             body: JSON.stringify({ message: userMessage, sessionId }),
-         });
- 
-         const data2000 = await response2000.json();
- 
-         if (data2000.response) {
-             currentType.innerHTML = `<div class="current-type">${data2000.response}</div>`;
-         }
- 
-     } catch (error) {
-         console.error("Error fetching from port 2000:", error);
-     }
- 
-     document.getElementById("animation").style.display = "none"; // Hide animation
+      function generateSessionId() {
+        return "session-" + Math.random().toString(36).substr(2, 9);
+      }
 
+      async function sendMessageversatile(userMessage) {
+        const chatBox = document.getElementById("chat-box-versatile");
+        if (!userMessage) return;
 
-     try {
-         // Send request to port 8000 THINGS TO KEEP IN MIND
-         const response8000 = await fetch("http://localhost:8000/chat-llama-3.3-70b-versatile", {
-             method: "POST",
-             headers: { "Content-Type": "application/json" },
-             body: JSON.stringify({ message: userMessage, sessionId }),
-         });
- 
-         const data8000 = await response8000.json();
- 
-         if (data8000.response) {
-             currentTtkim.innerHTML = `<div class="current-ttkim">${data8000.response}</div>`;
-         }
- 
-     } catch (error) {
-         console.error("Error fetching from port 8000:", error);
-     }
- 
-     document.getElementById("animation").style.display = "none"; // Hide animation
- 
- 
- 
-     try {
-         // Send request to port 1000 OUTCOME
-         const response1000 = await fetch("http://localhost:1000/chat-llama-3.3-70b-versatile", {
-             method: "POST",
-             headers: { "Content-Type": "application/json" },
-             body: JSON.stringify({ message: userMessage, sessionId }),
-         });
- 
-         const data1000 = await response1000.json();
- 
-         if (data1000.response) {
-             potentialPositiveOutcome.innerHTML = `<div class="potential-positive-outcome">${data1000.response}</div>`;
-         }
- 
-     } catch (error) {
-         console.error("Error fetching from port 1000:", error);
-     }
- 
-     document.getElementById("animation").style.display = "none"; // Hide animation
- 
- 
- 
- 
- 
- 
- 
-     try {
-         // Send request to port 6000 OUTCOME n
-         const response7000 = await fetch("http://localhost:7000/chat-llama-3.3-70b-versatile", {
-             method: "POST",
-             headers: { "Content-Type": "application/json" },
-             body: JSON.stringify({ message: userMessage, sessionId }),
-         });
- 
-         const data7000 = await response7000.json();
- 
-         if (data7000.response) {
-             potentialNegativeOutcome.innerHTML = `<div class="potential-negative-outcome">${data7000.response}</div>`;
-         }
- 
-     } catch (error) {
-         console.error("Error fetching from port 7000:", error);
-     }
- 
-     document.getElementById("animation").style.display = "none"; // Hide animation
- 
- 
- }
- 
- 
-         function displayChatHistory(history) {
-             const chatBox = document.getElementById("chat-box-versatile");
-             chatBox.innerHTML = "";
-     
-             aiMessageCount = 0;
-             let firstUserMessage = "";
-             let fourthAiMessage = "";
-             let lastBotMessage = "";
-             let lastMessageRole = "";
-     
-             history.forEach(msg => {
-                 const roleClass = msg.role === "user" ? "user" : "bot";
-                 chatBox.innerHTML += `<div class="chat-bubble message ${roleClass}">${msg.content}</div>`;
-     
-                 if (msg.role === "user" && !firstUserMessage) {
-                     firstUserMessage = msg.content;
-                 }
-     
-                 if (msg.role === "assistant") {
-                     aiMessageCount++;
-                     lastBotMessage = msg.content;
-                     if (aiMessageCount === 1000) {
-                         fourthAiMessage = msg.content;
-                     }
-                 }
-     
-                 lastMessageRole = msg.role;
-             });
-     
-             if (lastMessageRole === "user") {
-                 document.getElementById("lastBotMessage").innerText = "";
-             } else if (lastBotMessage) {
-                 document.getElementById("lastBotMessage").innerText = lastBotMessage;
-                 isThinking = false;
-                 document.getElementById("animation").style.display = "none"; // Hide animation when bot replies
-                 userSentLastMessage = false; // Reset tracker
-             }
-     
-             if (firstUserMessage && fourthAiMessage) {
-                 showPopup(firstUserMessage + "\n\n" + fourthAiMessage);
-             }
-         }
-     
-         document.querySelector(".YES-button").addEventListener("click", () => sendMessageversatile("Yes"));
-         document.querySelector(".NO-button").addEventListener("click", () => sendMessageversatile("No"));
-         document.querySelector(".IDK-button").addEventListener("click", () => sendMessageversatile("I Don't Know"));
-         document.querySelector(".elaborate-button").addEventListener("click", () => sendMessageversatile("Explane your decision"));
-     
-         document.querySelector("#user-input-versatile").addEventListener("keypress", function (event) {
-             if (event.key === "Enter") {
-                 event.preventDefault();
-                 sendTextInput();
-             }
-         });
-     
-         document.querySelector("#send-button").addEventListener("click", sendTextInput);
- 
-     
-         function sendTextInput() {
-             const input = document.getElementById("user-input-versatile");
-             const message = input.value.trim();
-             if (message) {
-                 sendMessageversatile(message);
-                 input.value = "";
-             }
-         }
-     
-         function reset() {
-             document.getElementById("chat-box-versatile").innerHTML = "";
-             localStorage.removeItem("sessionId");
-             aiMessageCount = 0;
-             sessionId = generateSessionId();
-             localStorage.setItem("sessionId", sessionId);
-             closePopup();
-         }
- 
- 
-         function showPopup(message) {
-     document.getElementById("popup-message").innerText = message;
-     document.getElementById("popup").style.display = "block";
-     document.getElementById("popup-overlay").style.display = "block";
- }
- 
- function closePopup() {
-     document.getElementById("popup").style.display = "none";
-     document.getElementById("popup-overlay").style.display = "none";
- }
- 
- 
-     </script>
+        const currentVerdict = document.getElementById("current-verdict");
+
+        const currentLevel = document.getElementById("current-level");
+
+        const currentType = document.getElementById("current-type");
+
+        const currentTtkim = document.getElementById("current-ttkim");
+
+        const potentialPositiveOutcome = document.getElementById(
+          "potential-positive-outcome"
+        );
+
+        const potentialNegativeOutcome = document.getElementById(
+          "potential-negative-outcome"
+        );
+
+        chatBox.innerHTML += `<div class="chat-bubble message user">${userMessage}</div>`;
+        userSentLastMessage = true; // User sent a message
+
+        // Show "Thinking..." if the user sent a message
+        const lastBotMessageElement = document.getElementById("lastBotMessage");
+        lastBotMessageElement.innerText = "";
+        lastBotMessageElement.classList.add("thinking");
+
+        // Show animation
+        document.getElementById("animation").style.display = "block";
+        isThinking = true;
+
+        try {
+          const response = await fetch(
+            "http://localhost:5000/chat-llama-3.3-70b-versatile",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ message: userMessage, sessionId }),
+            }
+          );
+
+          const data = await response.json();
+          if (!data.response) throw new Error("Invalid response from server");
+
+          displayChatHistory(data.history);
+        } catch (error) {
+          chatBox.innerHTML += ``;
+          isThinking = false;
+          document.getElementById("animation").style.display = "none"; // Hide animation on error
+        }
+
+        try {
+          // Send request to port 4000
+          const response4000 = await fetch(
+            "http://localhost:4000/chat-llama-3.3-70b-versatile",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ message: userMessage, sessionId }),
+            }
+          );
+
+          const data4000 = await response4000.json();
+
+          if (data4000.response) {
+            currentVerdict.innerHTML = `<div class="verdict">${data4000.response}</div>`;
+          }
+        } catch (error) {
+          console.error("Error fetching from port 4000:", error);
+        }
+
+        document.getElementById("animation").style.display = "none"; // Hide animation
+
+        try {
+          // Send request to port 3000
+          const response3000 = await fetch(
+            "http://localhost:3000/chat-llama-3.3-70b-versatile",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ message: userMessage, sessionId }),
+            }
+          );
+
+          const data3000 = await response3000.json();
+
+          if (data3000.response) {
+            currentLevel.innerHTML = `<div class="current-level">${data3000.response}</div>`;
+          }
+        } catch (error) {
+          console.error("Error fetching from port 3000:", error);
+        }
+
+        document.getElementById("animation").style.display = "none"; // Hide animation
+
+        try {
+          // Send request to port 2000
+          const response2000 = await fetch(
+            "http://localhost:2000/chat-llama-3.3-70b-versatile",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ message: userMessage, sessionId }),
+            }
+          );
+
+          const data2000 = await response2000.json();
+
+          if (data2000.response) {
+            currentType.innerHTML = `<div class="current-type">${data2000.response}</div>`;
+          }
+        } catch (error) {
+          console.error("Error fetching from port 2000:", error);
+        }
+
+        document.getElementById("animation").style.display = "none"; // Hide animation
+
+        try {
+          // Send request to port 8000 THINGS TO KEEP IN MIND
+          const response8000 = await fetch(
+            "http://localhost:8000/chat-llama-3.3-70b-versatile",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ message: userMessage, sessionId }),
+            }
+          );
+
+          const data8000 = await response8000.json();
+
+          if (data8000.response) {
+            currentTtkim.innerHTML = `<div class="current-ttkim">${data8000.response}</div>`;
+          }
+        } catch (error) {
+          console.error("Error fetching from port 8000:", error);
+        }
+
+        document.getElementById("animation").style.display = "none"; // Hide animation
+
+        try {
+          // Send request to port 1000 OUTCOME
+          const response1000 = await fetch(
+            "http://localhost:1000/chat-llama-3.3-70b-versatile",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ message: userMessage, sessionId }),
+            }
+          );
+
+          const data1000 = await response1000.json();
+
+          if (data1000.response) {
+            potentialPositiveOutcome.innerHTML = `<div class="potential-positive-outcome">${data1000.response}</div>`;
+          }
+        } catch (error) {
+          console.error("Error fetching from port 1000:", error);
+        }
+
+        document.getElementById("animation").style.display = "none"; // Hide animation
+
+        try {
+          // Send request to port 6000 OUTCOME n
+          const response7000 = await fetch(
+            "http://localhost:7000/chat-llama-3.3-70b-versatile",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ message: userMessage, sessionId }),
+            }
+          );
+
+          const data7000 = await response7000.json();
+
+          if (data7000.response) {
+            potentialNegativeOutcome.innerHTML = `<div class="potential-negative-outcome">${data7000.response}</div>`;
+          }
+        } catch (error) {
+          console.error("Error fetching from port 7000:", error);
+        }
+
+        document.getElementById("animation").style.display = "none"; // Hide animation
+      }
+
+      function displayChatHistory(history) {
+        const chatBox = document.getElementById("chat-box-versatile");
+        chatBox.innerHTML = "";
+
+        aiMessageCount = 0;
+        let firstUserMessage = "";
+        let fourthAiMessage = "";
+        let lastBotMessage = "";
+        let lastMessageRole = "";
+
+        history.forEach((msg) => {
+          const roleClass = msg.role === "user" ? "user" : "bot";
+          chatBox.innerHTML += `<div class="chat-bubble message ${roleClass}">${msg.content}</div>`;
+
+          if (msg.role === "user" && !firstUserMessage) {
+            firstUserMessage = msg.content;
+          }
+
+          if (msg.role === "assistant") {
+            aiMessageCount++;
+            lastBotMessage = msg.content;
+            if (aiMessageCount === 1000) {
+              fourthAiMessage = msg.content;
+            }
+          }
+
+          lastMessageRole = msg.role;
+        });
+
+        if (lastMessageRole === "user") {
+          document.getElementById("lastBotMessage").innerText = "";
+        } else if (lastBotMessage) {
+          document.getElementById("lastBotMessage").innerText = lastBotMessage;
+          isThinking = false;
+          document.getElementById("animation").style.display = "none"; // Hide animation when bot replies
+          userSentLastMessage = false; // Reset tracker
+        }
+
+        if (firstUserMessage && fourthAiMessage) {
+          showPopup(firstUserMessage + "\n\n" + fourthAiMessage);
+        }
+      }
+
+      document
+        .querySelector(".YES-button")
+        .addEventListener("click", () => sendMessageversatile("Yes"));
+      document
+        .querySelector(".NO-button")
+        .addEventListener("click", () => sendMessageversatile("No"));
+      document
+        .querySelector(".IDK-button")
+        .addEventListener("click", () => sendMessageversatile("I Don't Know"));
+      document
+        .querySelector(".elaborate-button")
+        .addEventListener("click", () =>
+          sendMessageversatile("Explane your decision")
+        );
+
+      document
+        .querySelector("#user-input-versatile")
+        .addEventListener("keypress", function (event) {
+          if (event.key === "Enter") {
+            event.preventDefault();
+            sendTextInput();
+          }
+        });
+
+      document
+        .querySelector("#send-button")
+        .addEventListener("click", sendTextInput);
+
+      function sendTextInput() {
+        const input = document.getElementById("user-input-versatile");
+        const message = input.value.trim();
+        if (message) {
+          sendMessageversatile(message);
+          input.value = "";
+        }
+      }
+
+      function reset() {
+        document.getElementById("chat-box-versatile").innerHTML = "";
+        localStorage.removeItem("sessionId");
+        aiMessageCount = 0;
+        sessionId = generateSessionId();
+        localStorage.setItem("sessionId", sessionId);
+        closePopup();
+      }
+
+      function showPopup(message) {
+        document.getElementById("popup-message").innerText = message;
+        document.getElementById("popup").style.display = "block";
+        document.getElementById("popup-overlay").style.display = "block";
+      }
+
+      function closePopup() {
+        document.getElementById("popup").style.display = "none";
+        document.getElementById("popup-overlay").style.display = "none";
+      }
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
-</body>
+  </body>
 </html>
