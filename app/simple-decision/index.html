@@ -386,82 +386,78 @@
         class="card bg-base-300 rounded-box grid h-32 flex-grow place-items-center"
       >
         <h1>Decision Analysis</h1>
-        <ul style="margin-right: 25%" class="timeline timeline-vertical">
-          <li>
-            <div class="timeline-start">Type</div>
-            <div class="timeline-middle">
-              &nbsp; &nbsp;
-              <i class="fa-solid fa-layer-group" style="color: #74fccf"></i
-              >&nbsp; &nbsp;
-            </div>
-            <div class="timeline-end timeline-box">
-              <div id="current-type"></div>
-            </div>
-            <hr />
-          </li>
-          <li>
-            <hr />
-            <div class="timeline-start">Size</div>
-            <div class="timeline-middle">
-              &nbsp; &nbsp;
-              <i
-                class="fa-solid fa-up-right-and-down-left-from-center"
-                style="color: #74c0fc"
-              ></i
-              >&nbsp; &nbsp;
-            </div>
-            <div class="timeline-end timeline-box">
-              <div id="current-level"></div>
-            </div>
-            <hr />
-          </li>
-        </ul>
 
-        <ul style="margin-right: 25%" class="timeline timeline-vertical">
-          <li>
-            <div class="timeline-start">Things to keep in mind</div>
-            <div class="timeline-middle">
-              &nbsp; &nbsp;
-              <i class="fa-solid fa-lightbulb" style="color: #ffd43b"></i>
-              &nbsp; &nbsp;
-            </div>
-            <div class="timeline-end timeline-box">
-              <div id="current-ttkim"></div>
-            </div>
-            <hr />
-          </li>
-          <li>
-            <hr />
-            <div class="timeline-start">Pros</div>
-            <div class="timeline-middle">
-              &nbsp; &nbsp;<i
-                class="fa-solid fa-plus"
-                style="color: #63e6be"
-              ></i
-              >&nbsp; &nbsp;
-            </div>
-            <div class="timeline-end timeline-box">
-              <div id="potential-positive-outcome"></div>
-            </div>
-            <hr />
-          </li>
+        <div style="margin-bottom: 30px; width: 100%" class="overflow-x-auto">
+          <table class="table">
+            <!-- head -->
+            <thead>
+              <tr>
+                <th></th>
+                <th>Decision</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- row 1 -->
+              <tr style="font-size: large">
+                <th><!-- LOGO --></th>
+                <td style="font-size: larger;"><i class="fa-solid fa-layer-group" style="color: #74fccf"></i
+                  >&nbsp; &nbsp;Type&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;</td>
+                <td><div id="current-type"></div></td>
+              </tr>
+              <tr style="font-size: large">
+                <th><!-- LOGO --></th>
+                <td style="font-size: larger;"><i
+                  class="fa-solid fa-up-right-and-down-left-from-center"
+                  style="color: #74c0fc"
+                ></i
+                >&nbsp; &nbsp;Size</td>
+                <td><div id="current-level"></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-          <li>
-            <hr />
-            <div class="timeline-start">Cons</div>
-            <div class="timeline-middle">
-              &nbsp; &nbsp;<i
-                class="fa-solid fa-minus"
-                style="color: #e66565"
-              ></i
-              >&nbsp; &nbsp;
-            </div>
-            <div class="timeline-end timeline-box">
-              <div id="potential-negative-outcome"></div>
-            </div>
-            <hr />
-          </li>
-        </ul>
+        <div style="margin-bottom: 30px; width: 100%" class="overflow-x-auto">
+          <table class="table">
+            <!-- head -->
+            <thead>
+              <tr>
+                <th></th>
+                <th>Insights</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- row 1 -->
+              <tr style="font-size: large">
+                <th><!-- LOGO --></th>
+                <td style="font-size: larger;"><i class="fa-solid fa-lightbulb" style="color: #ffd43b"></i>&nbsp; &nbsp;Things to keep in mind</td>
+                <td><div id="current-ttkim"></div></td>
+              </tr>
+              <tr style="font-size: large">
+                <th><!-- LOGO --></th>
+                <td style="font-size: larger;"><i
+                  class="fa-solid fa-plus"
+                  style="color: #63e6be"
+                ></i
+                >&nbsp; &nbsp;Pros</td>
+                <td><div id="potential-positive-outcome"></div></td>
+              </tr>
+              <tr style="font-size: large">
+                <th><!-- LOGO --></th>
+                <td style="font-size: larger;"><i
+                  class="fa-solid fa-minus"
+                  style="color: #e66565"
+                ></i
+                >&nbsp; &nbsp;Cons</td>
+                <td><div id="potential-negative-outcome"></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
         <div style="margin-bottom: 30px; width: 100%" class="overflow-x-auto">
           <table class="table">
@@ -785,5 +781,7 @@
       }
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="login.js"></script>
   </body>
 </html>
