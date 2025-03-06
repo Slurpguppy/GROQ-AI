@@ -77,9 +77,9 @@
 
       overflow-y: auto;
 
-      flex-direction: column;
+      flex-direction: column-reverse;  /* New messages appear at the bottom */
       gap: 8px;
-      height: 100%;
+      height: 800px;
     }
 
     #input-container {
@@ -186,7 +186,7 @@
     /* ai message */
     .bot {
       font-size: 15px;
-      color: rgb(0, 0, 0);
+      color: rgb(189, 189, 189);
       position: sticky;
       top: 0; /* Sticks to the top */
       right: 0;
@@ -475,6 +475,7 @@
               <tr style="font-size: large">
                 <th><!-- LOGO --></th>
                 <td style="font-size: larger; color: blueviolet">Verdict</td>
+                <td><div id="current-Question"></div></td>
                 <td><div id="current-verdict"></div></td>
               </tr>
             </tbody>
@@ -506,6 +507,8 @@
         const currentType = document.getElementById("current-type");
 
         const currentTtkim = document.getElementById("current-ttkim");
+
+        const currentQuestion = document.getElementById("current-Question");
 
         const potentialPositiveOutcome = document.getElementById(
           "potential-positive-outcome"
@@ -658,6 +661,29 @@
         document.getElementById("animation").style.display = "none"; // Hide animation
 
         try {
+          // Send request to port 10000 QUESTION
+          const response10000 = await fetch(
+            "http://localhost:10000/chat-llama-3.3-70b-versatile",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ message: userMessage, sessionId }),
+            }
+          );
+
+          const data10000 = await response10000.json();
+
+          if (data10000.response) {
+            currentQuestion.innerHTML = `<div class="current-Question">${data10000.response}</div>`;
+          }
+        } catch (error) {
+          console.error("Error fetching from port 10000:", error);
+        }
+
+        document.getElementById("animation").style.display = "none"; // Hide animation
+
+
+        try {
           // Send request to port 6000 OUTCOME n
           const response7000 = await fetch(
             "http://localhost:7000/chat-llama-3.3-70b-versatile",
@@ -701,7 +727,7 @@
           if (msg.role === "assistant") {
             aiMessageCount++;
             lastBotMessage = msg.content;
-            if (aiMessageCount === 1000) {
+            if (aiMessageCount === 3) {
               fourthAiMessage = msg.content;
             }
           }
