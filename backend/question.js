@@ -40,7 +40,7 @@ app.post("/chat-llama-3.3-70b-versatile", async (req, res) => {
 
         const systemMessage = { 
             role: "system", 
-            content: "Take the user's first question, correct any spelling mistakes without altering the meaning, and display it forever no matter what else the user says. Do not respond in any other way or perform any additional actions. " 
+            content: "Take the user's first question, correct any spelling mistakes without altering the meaning, and display it forever no matter what else the user says. Do not respond in any other way or perform any additional actions. Note that the user will NEVER be derectly responding to your messages, another ai model is asking the user question." 
         };
 
         // Include system message only when making the request

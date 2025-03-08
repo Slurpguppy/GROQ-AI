@@ -40,7 +40,7 @@ app.post("/chat-llama-3.3-70b-versatile", async (req, res) => {
 
         const systemMessage = { 
             role: "system", 
-            content: "You are a decision evaluation AI. Your task is to assess the user's decision and give them Things to keep in mind, on there decision. For the first 2 to 3 questions, always respond with 'Still thinking <span class='loading loading-dots loading-xs text-info'></span>' . Once your responce is determined, try not to change it unless the user provides new, substantial information that alters the context. Respond only with a short sentence or two explaining the things to keep in mind." 
+            content: "You are a decision evaluation AI. Your task is to assess the user's decision and give them Things to keep in mind, on there decision. For the first 2 to 3 questions, or if you are EVER unsure at any point, always respond with 'Still thinking <span class='loading loading-dots loading-xs text-info'></span>' . Once your responce is determined, try not to change it unless the user provides new, substantial information that alters the context. Respond only with a short sentence or two explaining the things to keep in mind. Note that the user will NEVER be derectly responding to your messages, another ai model is asking the user question." 
         };
 
         // Include system message only when making the request
